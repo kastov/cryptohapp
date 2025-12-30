@@ -23,8 +23,14 @@ jobs:
           body: |
             ## Installation
 
+            **Backend (Node.js):**
             ```bash
             npm i @kastov/cryptohapp
+            ```
+
+            **Frontend (Browser):**
+            ```bash
+            npm i @kastov/cryptohapp jsencrypt
             ```
 
   publish:

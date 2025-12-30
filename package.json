@@ -1,6 +1,6 @@
 {
   "name": "@kastov/cryptohapp",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "public": true,
   "license": "MIT",
   "description": "A library for creating Happ crypto deep links.",
@@ -43,8 +43,13 @@
     "prepublish": "npm run build"
   },
   "keywords": [],
-  "dependencies": {
-    "jsencrypt": "^3.5.4"
+  "peerDependencies": {
+    "jsencrypt": ">=3"
+  },
+  "peerDependenciesMeta": {
+    "jsencrypt": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@types/node": "^24.10.2",
@@ -57,6 +62,7 @@
     "eslint-plugin-prettier": "^5.5.4",
     "prettier": "^3.7.4",
     "typescript": "~5.9.3",
-    "typescript-eslint": "^8.51.0"
+    "typescript-eslint": "^8.51.0",
+    "jsencrypt": "^3.5.4"
   }
 }
