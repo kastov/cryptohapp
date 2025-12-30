@@ -3,7 +3,7 @@ name: Release & Publish @kastov/cryptohapp
 on:
   push:
     tags:
-      - 'v*'
+      - '*'
 
 jobs:
   release:
