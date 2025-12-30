@@ -53,3 +53,5 @@ openapi.json
 .clinic
 
 .wip
+
+package-lock.json
