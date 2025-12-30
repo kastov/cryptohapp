@@ -23,7 +23,8 @@ const CRYPTO_CONFIGS = {
 
 /**
  * Creates a Happ crypto deep link by encrypting content with RSA public key.
- * Returns full link as string.
+ * Uses Node.js native `crypto.publicEncrypt()` for backend.
+ * Returns full link as string if `asLink` is true.
  *
  * @param content - The content to encrypt (e.g., subscription URL)
  * @param version - Crypto version to use (v2, v3, or v4)
@@ -44,7 +45,8 @@ export function createHappCryptoLink(
 
 /**
  * Creates a Happ crypto deep link by encrypting content with RSA public key.
- * Returns object with deepLink prefix and encryptedContent.
+ * Uses Node.js native `crypto.publicEncrypt()` for backend.
+ * Returns object with deepLink prefix and encryptedContent if `asLink` is false.
  *
  * @param content - The content to encrypt (e.g., subscription URL)
  * @param version - Crypto version to use (v2, v3, or v4)

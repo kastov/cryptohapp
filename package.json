@@ -1,6 +1,6 @@
 {
   "name": "@kastov/cryptohapp",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "public": true,
   "license": "MIT",
   "description": "A library for creating Happ crypto deep links.",
