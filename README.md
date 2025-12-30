@@ -24,39 +24,30 @@ npm i @kastov/cryptohapp jsencrypt
 
 ## Usage
 
-### Basic Example
+### Get Full Link (string)
 
 ```typescript
 import { createHappCryptoLink } from '@kastov/cryptohapp';
 
-const result = createHappCryptoLink('https://subscription.link.com/s/mysubscription');
+const link = createHappCryptoLink('https://subscription.link.com/s/remnawavetop', 'v4', true);
+// Returns: 'happ://crypt4/base64encodeddata...'
+
+if (link) {
+  console.log(link); // 'happ://crypt4/base64encodeddata...'
+}
+```
+
+### Get Separate Parts (object)
+
+```typescript
+import { createHappCryptoLink } from '@kastov/cryptohapp';
+
+const result = createHappCryptoLink('https://subscription.link.com/s/remnawavetop', 'v4');
 
 if (result) {
   console.log(result.deepLink); // 'happ://crypt4/'
   console.log(result.encryptedContent); // 'base64encodeddata...'
-
-  // Full link
-  const fullLink = result.deepLink + result.encryptedContent;
-  // 'happ://crypt4/base64encodeddata...'
 }
-```
-
-### Specify Crypto Version
-
-```typescript
-import { createHappCryptoLink } from '@kastov/cryptohapp';
-
-// Use v2
-const resultV2 = createHappCryptoLink('https://example.com/sub', 'v2');
-// resultV2.deepLink = 'happ://crypt2/'
-
-// Use v3
-const resultV3 = createHappCryptoLink('https://example.com/sub', 'v3');
-// resultV3.deepLink = 'happ://crypt3/'
-
-// Use v4 (default)
-const resultV4 = createHappCryptoLink('https://example.com/sub', 'v4');
-// resultV4.deepLink = 'happ://crypt4/'
 ```
 
 ### Error Handling
@@ -64,7 +55,7 @@ const resultV4 = createHappCryptoLink('https://example.com/sub', 'v4');
 ```typescript
 import { createHappCryptoLink } from '@kastov/cryptohapp';
 
-const result = createHappCryptoLink('https://example.com/subscription');
+const result = createHappCryptoLink('https://example.com/subscription', 'v4');
 
 if (result === null) {
   console.error('Encryption failed');
@@ -83,10 +74,14 @@ function CryptoLinkGenerator() {
   const [link, setLink] = useState('');
 
   const generateLink = () => {
-    const result = createHappCryptoLink('https://subscription.link.com/s/remnawavetop');
+    const cryptoLink = createHappCryptoLink(
+      'https://subscription.link.com/s/remnawavetop',
+      'v4',
+      true,
+    );
 
-    if (result) {
-      setLink(result.deepLink + result.encryptedContent);
+    if (cryptoLink) {
+      setLink(cryptoLink);
     }
   };
 
@@ -108,20 +103,14 @@ import { createHappCryptoLink } from '@kastov/cryptohapp';
 @Injectable()
 export class HappService {
   generateCryptoLink(subscriptionUrl: string): string | null {
-    const result = createHappCryptoLink(subscriptionUrl);
-
-    if (!result) {
-      return null;
-    }
-
-    return result.deepLink + result.encryptedContent;
+    return createHappCryptoLink(subscriptionUrl, 'v4', true);
   }
 }
 ```
 
 ## API Reference
 
-### `createHappCryptoLink(content, version?)`
+### `createHappCryptoLink(content, version, asLink?)`
 
 Creates an encrypted Happ deep link.
 
@@ -130,11 +119,19 @@ Creates an encrypted Happ deep link.
 | Parameter | Type                   | Default | Description                                     |
 | --------- | ---------------------- | ------- | ----------------------------------------------- |
 | `content` | `string`               | —       | The content to encrypt (e.g., subscription URL) |
-| `version` | `'v2' \| 'v3' \| 'v4'` | `'v4'`  | Crypto version to use                           |
+| `version` | `'v2' \| 'v3' \| 'v4'` | —       | Crypto version to use (required)                |
+| `asLink`  | `boolean`              | `false` | When `true`, returns full link string           |
 
 #### Returns
 
-`HappCryptoResult | null`
+**When `asLink` is `true`:** `string | null`
+
+```typescript
+const link = createHappCryptoLink(content, 'v4', true);
+// Returns: 'happ://crypt4/base64encodeddata...' or null
+```
+
+**When `asLink` is `false` or omitted:** `HappCryptoResult | null`
 
 ```typescript
 interface HappCryptoResult {
