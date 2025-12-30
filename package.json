@@ -1,0 +1,62 @@
+{
+  "name": "@kastov/cryptohapp",
+  "version": "0.1.0",
+  "public": true,
+  "license": "MIT",
+  "description": "A library for creating Happ crypto deep links.",
+  "author": "Yury Kastov <github.com/kastov>",
+  "homepage": "https://github.com/kastov/cryptohapp",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kastov/cryptohapp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kastov/cryptohapp/issues"
+  },
+  "main": "build/backend/index.backend.js",
+  "browser": "build/frontend/index.frontend.js",
+  "types": "build/backend/index.backend.d.ts",
+  "exports": {
+    ".": {
+      "node": {
+        "types": "./build/backend/index.backend.d.ts",
+        "default": "./build/backend/index.backend.js"
+      },
+      "browser": {
+        "types": "./build/frontend/index.frontend.d.ts",
+        "default": "./build/frontend/index.frontend.js"
+      },
+      "default": {
+        "types": "./build/backend/index.backend.d.ts",
+        "default": "./build/backend/index.backend.js"
+      }
+    }
+  },
+  "files": [
+    "build/**/*"
+  ],
+  "scripts": {
+    "clean": "rm -rf build",
+    "build:backend": "tsc -p tsconfig.backend.json",
+    "build:frontend": "tsc -p tsconfig.frontend.json",
+    "build": "npm run clean && npm run build:backend && npm run build:frontend",
+    "prepublish": "npm run build"
+  },
+  "keywords": [],
+  "dependencies": {
+    "jsencrypt": "^3.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.2",
+    "@typescript-eslint/eslint-plugin": "^8.51.0",
+    "@typescript-eslint/parser": "^8.51.0",
+    "eslint": "9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-paths": "^1.1.0",
+    "eslint-plugin-perfectionist": "^4.15.1",
+    "eslint-plugin-prettier": "^5.5.4",
+    "prettier": "^3.7.4",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.51.0"
+  }
+}
