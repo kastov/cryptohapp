@@ -2,14 +2,14 @@
 
 import { publicEncrypt } from 'node:crypto';
 
-import { HAPP_CRYPTO_V2, HAPP_CRYPTO_V3, HAPP_CRYPTO_V4 } from '../constants';
+import { HAPP_CRYPTO_V2, HAPP_CRYPTO_V3, HAPP_CRYPTO_V4, HAPP_CRYPTO_V5 } from '../constants';
 
 const RSA_PKCS1_PADDING = 1;
 
-export type HappCryptoVersion = 'v2' | 'v3' | 'v4';
+export type HappCryptoVersion = 'v2' | 'v3' | 'v4' | 'v5';
 
 export interface HappCryptoResult {
-    /** Deep link prefix (e.g., 'happ://crypt4/') */
+    /** Deep link prefix (e.g., 'happ://crypt5/') */
     deepLink: string;
     /** Base64 encoded encrypted content */
     encryptedContent: string;
@@ -19,6 +19,7 @@ const CRYPTO_CONFIGS = {
     v2: HAPP_CRYPTO_V2,
     v3: HAPP_CRYPTO_V3,
     v4: HAPP_CRYPTO_V4,
+    v5: HAPP_CRYPTO_V5,
 } as const;
 
 /**
@@ -27,14 +28,14 @@ const CRYPTO_CONFIGS = {
  * Returns full link as string if `asLink` is true.
  *
  * @param content - The content to encrypt (e.g., subscription URL)
- * @param version - Crypto version to use (v2, v3, or v4)
+ * @param version - Crypto version to use (v2, v3, v4, or v5)
  * @param asLink - When true, returns full link string
  * @returns Full deep link string or null on error
  *
  * @example
  * ```ts
- * const link = createHappCryptoLink('https://subscription.link.com/s/remnawavetop', 'v4', true);
- * // Returns: 'happ://crypt4/base64encodeddata...'
+ * const link = createHappCryptoLink('https://subscription.link.com/s/remnawavetop', 'v5', true);
+ * // Returns: 'happ://crypt5/base64encodeddata...'
  * ```
  */
 export function createHappCryptoLink(
@@ -49,14 +50,14 @@ export function createHappCryptoLink(
  * Returns object with deepLink prefix and encryptedContent if `asLink` is false.
  *
  * @param content - The content to encrypt (e.g., subscription URL)
- * @param version - Crypto version to use (v2, v3, or v4)
+ * @param version - Crypto version to use (v2, v3, v4, or v5)
  * @param asLink - When false or omitted, returns result object
  * @returns Object with deepLink and encryptedContent, or null on error
  *
  * @example
  * ```ts
- * const result = createHappCryptoLink('https://subscription.link.com/s/remnawavetop', 'v4');
- * // Returns: { deepLink: 'happ://crypt4/', encryptedContent: 'base64encodeddata...' }
+ * const result = createHappCryptoLink('https://subscription.link.com/s/remnawavetop', 'v5');
+ * // Returns: { deepLink: 'happ://crypt5/', encryptedContent: 'base64encodeddata...' }
  * ```
  */
 export function createHappCryptoLink(
